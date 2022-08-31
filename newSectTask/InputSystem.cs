@@ -4,14 +4,14 @@
     {
         private static Data _data = new Data();
 
-        private static void OutputOnError()
+        private static void PrintError()
         {
             Console.WriteLine("We don't know what you want. YOU WRONG");
         }
 
-        private static void InformationOut(string key)
+        private static void PrintInformation(string key)
         {
-            _data.GetTask()[key].OutInformation();
+            _data.GetTask()[key].PrintInformation();
         }
 
         private static bool CreateCommands(string[] commands)
@@ -20,8 +20,7 @@
             {
                 string idTask = commands[1];
                 string information = (commands.Length > 2 ? commands[2] : "no information");
-                string completed = (commands.Length > 3 ? commands[3] : " ");
-                _data.GetTask()[idTask] = new Task(idTask, information, completed);
+                _data.GetTask()[idTask] = new Task(idTask, information);
                 return true;
             }
             
@@ -42,22 +41,16 @@
                 case  "/info":
                     Console.WriteLine("pls w8 this section is under construction");
                     break;
-                case "/export":
-                    ImportExport.CreateExportFile(_data);
-                    break;
-                case "/import":
-                    _data = ImportExport.Import();
-                    break;
                 case "/list-task":
                     foreach (var e in _data.GetTask())
                     {
-                        InformationOut(e.Key);
+                        PrintInformation(e.Key);
                     }
                     break;
                 case "/completed-tasks":
                     foreach (var e in _data.GetTask())
-                        if(e.Value.СheckComplet())
-                            InformationOut(e.Key);
+                        if(e.Value.ReturnCompletionStatus())
+                            PrintInformation(e.Key);
                     break;
                 case "/list-group":
                     foreach (var e in _data.GetGroup())
@@ -66,7 +59,7 @@
                         foreach (var i in taskInGroup)
                         {
                             Console.Write("\t");
-                            InformationOut(i);
+                            PrintInformation(i);
                         }
                     }
                     break;
@@ -74,9 +67,9 @@
                     bool flag = true;
                     foreach (var e in _data.GetTask())
                     {
-                        if (e.Value.ChekDate())
+                        if (e.Value.IsTodayDate())
                         {
-                            e.Value.OutInformation();
+                            e.Value.PrintInformation();
                             flag = false;
                         }
                     }
@@ -97,11 +90,11 @@
             switch (commands[0])
             {
                 case "/delete-task":
-                    _data.GetTask()[commands[1]].OutWhenDelete();
+                    _data.GetTask()[commands[1]].PrintWhenDelete();
                     _data.GetTask().Remove(commands[1]);
                     break;
                 case "/change-status-task":
-                    _data.GetTask()[commands[1]].CompletedStatus();
+                    _data.GetTask()[commands[1]].SetCompletedStatus();
                     break;
                 case "/set-deadline":
                     string date = null;
@@ -129,8 +122,8 @@
                     _data.GetTask()[commands[1]].AddSubtask(commands[2], information);
                     break;
                 case "/completed-subtask": // taskId - subtaskId
-                    if (commands.Length > 2 & _data.GetTask()[commands[1]].ChekSubtask(commands[2]))
-                        _data.GetTask()[commands[1]].CompletedSubtaskStatus(commands[2]);
+                    if (commands.Length > 2 & _data.GetTask()[commands[1]].IsSubtaskExists(commands[2]))
+                        _data.GetTask()[commands[1]].SetCompletedSubtaskStatus(commands[2]);
                     else
                         return false;
                     break;
@@ -138,6 +131,39 @@
                     return false;
             }
             
+            return true;
+        }
+
+        private static bool DataCommands(string[] commands)
+        {
+            string path = "";
+            
+            if (commands.Length >= 2)
+            {
+                for (int i =1; i < commands.Length; i++)
+                {
+                    path += commands[i];
+                }
+            }
+
+            switch (commands[0])
+            {
+                case "/export":
+                    DataSaver.CreateExportFile(_data, path);
+                    break;
+                case "/import":
+                    if (DataReader.Import(path) != null)
+                    {
+                        _data = DataReader.Import(path);
+                        Console.WriteLine("Data replaced");
+                    }
+                    else
+                        return false;
+                    break;
+                default:
+                    return false;
+            }
+
             return true;
         }
 
@@ -149,7 +175,7 @@
             switch (commands[0])
             {
                 case "/delete-group":
-                    _data.GetGroup()[commands[1]].OutWhenDelete();
+                    _data.GetGroup()[commands[1]].PrintWhenDelete();
                     _data.GetGroup().Remove(commands[1]);
                     break;
                 default:
@@ -161,7 +187,6 @@
 
         private static void ProcessingInput(string[] commands)
         {
-            
             if(commands.Length == 1)
             {
                 CommandsInOneWord(commands);
@@ -169,9 +194,9 @@
             }
 
             if (CommandsWithGroup(commands) == false & CommandsWithTasks(commands) == false 
-                                                     & CreateCommands(commands) == false)
+                                                     & CreateCommands(commands) == false & DataCommands(commands))
             {
-                OutputOnError();
+                PrintError();
             }
         }
 

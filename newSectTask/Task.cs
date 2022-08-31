@@ -5,28 +5,32 @@ namespace newSectTask
     [DataContract]
     public class Task
     {
-        [DataMember]
-        private string _id, _information;
-        [DataMember]
-        private string _completed;
-        [DataMember]
-        private DateTime _deadLine =  new DateTime();
-        [DataMember]
-        private static Dictionary<string, Subtask> _subtasks = new Dictionary<string, Subtask>();
+        [DataMember] private string _id;
+        [DataMember] private string _information;
+        [DataMember] private bool _isCompleted;
+        [DataMember] private DateTime _deadLine =  new DateTime();
+        [DataMember] private static Dictionary<string, Subtask> _subtasks = new Dictionary<string, Subtask>();
+        
+        public Task(string id, string information)
+        {
+            _id = id;
+            _information = information;
+            Console.WriteLine($"Task created. Id: {_id}");
+        }
 
-        public bool ChekSubtask(string id)
+        public bool IsSubtaskExists(string id)
         {
             return _subtasks.ContainsKey(id);
         }
 
-        public bool ChekDate()
+        public bool IsTodayDate()
         {
             return _deadLine == DateTime.Today;
         }
         
-        public void CompletedSubtaskStatus(string id)
+        public void SetCompletedSubtaskStatus(string id)
         {
-            _subtasks[id].CompletedStatus();
+            _subtasks[id].SetCompletedStatus();
         }
 
         public void AddSubtask(string subtaskId, string subtaskInformation)
@@ -37,46 +41,38 @@ namespace newSectTask
 
         public bool SetDeadLine(string deadLine)
         {
-            bool f = DateTime.TryParse(deadLine, out _deadLine);
-            if(f) Console.WriteLine($"Deadline is set to {deadLine}");
-            return f;
-            
+            bool isParsed = DateTime.TryParse(deadLine, out _deadLine);
+            if(isParsed) Console.WriteLine($"Deadline is set to {deadLine}");
+            return isParsed;
         }
 
-        public bool СheckComplet()
+        public bool ReturnCompletionStatus()
         {
-            return _completed == "V";
+            return _isCompleted;
         }
-        
-        public void CompletedStatus()
+
+        public void SetCompletedStatus()
         {
-            _completed = "V";
+            _isCompleted = true;
             Console.WriteLine($"Status {_id} - Performed V");
         }
 
-        public void OutWhenDelete()
+        public void PrintWhenDelete()
         {
             Console.WriteLine($"Task: {_id} - deleted");
         }
         
-        public void OutInformation()
+        public void PrintInformation()
         {
-            Console.WriteLine($"[{_completed}] {_id} | {_information}");
+            string signOfReadiness = (_isCompleted ? "V" : " ");
+            Console.WriteLine("[{0}] {1} | {2}", signOfReadiness, _id, _information);
             if(_deadLine.Date != DateTime.MinValue)
                 Console.WriteLine($"\t({_deadLine})");
             foreach (var e in _subtasks)
             {
                 Console.Write("\t");
-                e.Value.OutInformation();
+                e.Value.PrintInformation();
             }
-        }
-
-        public Task(string id, string information, string completed)
-        {
-            _id = id;
-            _information = information;
-            _completed = completed;
-            Console.WriteLine($"Task created. Id: {_id}");
         }
     }
 }

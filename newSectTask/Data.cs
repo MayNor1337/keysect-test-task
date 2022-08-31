@@ -5,10 +5,8 @@ namespace newSectTask
     [DataContract]
     public class Data
     { 
-        [DataMember]
-        private static Dictionary<string, Task> _tasks = new Dictionary<string, Task>();
-        [DataMember]
-        private static Dictionary<string, TaskGroup> _group = new Dictionary<string, TaskGroup>();
+        [DataMember] private static Dictionary<string, Task> _tasks = new Dictionary<string, Task>();
+        [DataMember] private static Dictionary<string, TaskGroup> _group = new Dictionary<string, TaskGroup>();
 
         public Dictionary<string, Task> GetTask()
         {

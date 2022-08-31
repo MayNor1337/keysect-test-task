@@ -1,0 +1,17 @@
+C:\Users\Egor\OneDrive\Документы\GitHub\keysect-test-task\newSectTask\bin\Debug\net6.0\newSectTask.exe
+C:\Users\Egor\OneDrive\Документы\GitHub\keysect-test-task\newSectTask\bin\Debug\net6.0\newSectTask.deps.json
+C:\Users\Egor\OneDrive\Документы\GitHub\keysect-test-task\newSectTask\bin\Debug\net6.0\newSectTask.runtimeconfig.json
+C:\Users\Egor\OneDrive\Документы\GitHub\keysect-test-task\newSectTask\bin\Debug\net6.0\newSectTask.dll
+C:\Users\Egor\OneDrive\Документы\GitHub\keysect-test-task\newSectTask\bin\Debug\net6.0\newSectTask.pdb
+C:\Users\Egor\OneDrive\Документы\GitHub\keysect-test-task\newSectTask\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\Egor\OneDrive\Документы\GitHub\keysect-test-task\newSectTask\obj\Debug\net6.0\newSectTask.csproj.AssemblyReference.cache
+C:\Users\Egor\OneDrive\Документы\GitHub\keysect-test-task\newSectTask\obj\Debug\net6.0\newSectTask.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Egor\OneDrive\Документы\GitHub\keysect-test-task\newSectTask\obj\Debug\net6.0\newSectTask.AssemblyInfoInputs.cache
+C:\Users\Egor\OneDrive\Документы\GitHub\keysect-test-task\newSectTask\obj\Debug\net6.0\newSectTask.AssemblyInfo.cs
+C:\Users\Egor\OneDrive\Документы\GitHub\keysect-test-task\newSectTask\obj\Debug\net6.0\newSectTask.csproj.CoreCompileInputs.cache
+C:\Users\Egor\OneDrive\Документы\GitHub\keysect-test-task\newSectTask\obj\Debug\net6.0\newSectTask.csproj.CopyComplete
+C:\Users\Egor\OneDrive\Документы\GitHub\keysect-test-task\newSectTask\obj\Debug\net6.0\newSectTask.dll
+C:\Users\Egor\OneDrive\Документы\GitHub\keysect-test-task\newSectTask\obj\Debug\net6.0\refint\newSectTask.dll
+C:\Users\Egor\OneDrive\Документы\GitHub\keysect-test-task\newSectTask\obj\Debug\net6.0\newSectTask.pdb
+C:\Users\Egor\OneDrive\Документы\GitHub\keysect-test-task\newSectTask\obj\Debug\net6.0\newSectTask.genruntimeconfig.cache
+C:\Users\Egor\OneDrive\Документы\GitHub\keysect-test-task\newSectTask\obj\Debug\net6.0\ref\newSectTask.dll

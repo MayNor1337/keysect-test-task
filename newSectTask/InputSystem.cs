@@ -49,13 +49,13 @@
                     break;
                 case "/completed-tasks":
                     foreach (var e in _data.GetTask())
-                        if(e.Value.ReturnCompletionStatus())
+                        if(e.Value.GetCompletionStatus())
                             PrintInformation(e.Key);
                     break;
                 case "/list-group":
                     foreach (var e in _data.GetGroup())
                     {
-                        List<string> taskInGroup = e.Value.ReturnListTasks();
+                        List<string> taskInGroup = e.Value.GetTasks();
                         foreach (var i in taskInGroup)
                         {
                             Console.Write("\t");

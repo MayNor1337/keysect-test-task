@@ -16,7 +16,7 @@ namespace newSectTask
             Console.WriteLine($"Created a group {_id} - {_name}");
         }
 
-        public List<string> ReturnListTasks()
+        public List<string> GetTasks()
         {
             Console.WriteLine($"group {_id} - {_name}:");
             return _incomingTasks;

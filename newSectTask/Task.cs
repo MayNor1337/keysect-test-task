@@ -46,7 +46,7 @@ namespace newSectTask
             return isParsed;
         }
 
-        public bool ReturnCompletionStatus()
+        public bool GetCompletionStatus()
         {
             return _isCompleted;
         }

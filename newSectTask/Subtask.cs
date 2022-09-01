@@ -13,24 +13,17 @@ namespace newSectTask
         {
             _id = id;
             _information = information;
-            Console.WriteLine($"Subtask created {_id} - {_information}");
-        }
-        
-        private string PrintCompletionStatus()
-        {
-            return _isCompleted ? "V" : " ";
         }
 
         public void PrintInformation()
         {
-            string statusSubtask = PrintCompletionStatus();
-            Console.WriteLine($"[{statusSubtask}] {_id} - {_information}", statusSubtask);
+            PrintSystem.PrintSubtaskInformation(_isCompleted, _id, _information);
         }
 
         public void SetCompletedStatus()
         {
             _isCompleted = true;
-            Console.WriteLine($"Status {_id} - Performed V");
+            PrintSystem.PrintWhenSubtaskSetStatus(_id);
         }
     }
 }

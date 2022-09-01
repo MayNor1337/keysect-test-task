@@ -13,7 +13,7 @@ namespace newSectTask
         {
             _id = id;
             _name = name;
-            Console.WriteLine($"Created a group {_id} - {_name}");
+            PrintSystem.PrintWhenTaskGroupCreated(id, name);
         }
 
         public List<string> GetTasks()
@@ -25,18 +25,13 @@ namespace newSectTask
         public void DeleteTask(string taskId)
         {
             _incomingTasks.Remove(taskId);
-            Console.WriteLine($"Removed task {taskId} from groups {_id} - {_name}");
+            PrintSystem.PrintWhenDeletedTaskFromGroup(taskId, _id, _name);
         }
 
         public void AddTask(string taskId)
         {
             _incomingTasks.Add(taskId);
-            Console.WriteLine($"Added task {taskId} to group {_id} - {_name}");
-        }
-        
-        public void PrintWhenDelete()
-        {
-            Console.WriteLine($"Group: {_id}, {_name} - deleted");
+            PrintSystem.PrintWhenAddedTaskInGroup(taskId,_id, _name);
         }
     }
 }

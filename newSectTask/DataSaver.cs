@@ -8,7 +8,7 @@ namespace newSectTask
         {
             string json = JsonConvert.SerializeObject(data);
             File.WriteAllText(path, json);
-            Console.WriteLine($@"The ""data"" file is generated, find it in the {path} folder");
+            PrintSystem.PrintWhenExport(path);
         }
     }
 }

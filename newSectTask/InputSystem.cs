@@ -4,11 +4,6 @@
     {
         private static Data _data = new Data();
 
-        private static void PrintError()
-        {
-            Console.WriteLine("We don't know what you want. YOU WRONG");
-        }
-
         private static void PrintInformation(string key)
         {
             _data.GetTask()[key].PrintInformation();
@@ -18,9 +13,10 @@
         {
             if (commands[0] == "/create-task")
             {
-                string idTask = commands[1];
+                string taskId = commands[1];
                 string information = (commands.Length > 2 ? commands[2] : "no information");
-                _data.GetTask()[idTask] = new Task(idTask, information);
+                _data.GetTask()[taskId] = new Task(taskId, information);
+                PrintSystem.PrintWhenTaskCreate(taskId);
                 return true;
             }
             
@@ -39,7 +35,7 @@
             switch (commands[0])
             {
                 case  "/info":
-                    Console.WriteLine("pls w8 this section is under construction");
+                    PrintSystem.PrintInfo();
                     break;
                 case "/list-task":
                     foreach (var e in _data.GetTask())
@@ -58,7 +54,6 @@
                         List<string> taskInGroup = e.Value.GetTasks();
                         foreach (var i in taskInGroup)
                         {
-                            Console.Write("\t");
                             PrintInformation(i);
                         }
                     }
@@ -74,10 +69,10 @@
                         }
                     }
                     if(flag)
-                        Console.WriteLine("No tasks for today");
+                        PrintSystem.PrintEmptyDateRequest();
                     break;
                 default:
-                    Console.WriteLine("We do not know this command");
+                    PrintSystem.PrintWithUnknownCommand();
                     break;
             }
         }
@@ -90,11 +85,12 @@
             switch (commands[0])
             {
                 case "/delete-task":
-                    _data.GetTask()[commands[1]].PrintWhenDelete();
                     _data.GetTask().Remove(commands[1]);
+                    PrintSystem.PrintWhenDeleteTask(commands[1]);
                     break;
                 case "/change-status-task":
                     _data.GetTask()[commands[1]].SetCompletedStatus();
+                    PrintSystem.PrintWhenChangeTaskStatus(commands[0]);
                     break;
                 case "/set-deadline":
                     string date = null;
@@ -117,9 +113,10 @@
                     else
                         return false;
                     break;
-                case "/add-subtask": // task - idSubtask - informationSubtask
+                    case "/add-subtask": // task - idSubtask - informationSubtask
                     string information = commands.Length > 3 ? commands[3] : "No information";
                     _data.GetTask()[commands[1]].AddSubtask(commands[2], information);
+                    PrintSystem.PrintWhenSubtaskCreated(commands[2], commands[1]);
                     break;
                 case "/completed-subtask": // taskId - subtaskId
                     if (commands.Length > 2 & _data.GetTask()[commands[1]].IsSubtaskExists(commands[2]))
@@ -155,7 +152,7 @@
                     if (DataReader.Import(path) != null)
                     {
                         _data = DataReader.Import(path);
-                        Console.WriteLine("Data replaced");
+                        PrintSystem.PrintWhenImport();
                     }
                     else
                         return false;
@@ -175,7 +172,7 @@
             switch (commands[0])
             {
                 case "/delete-group":
-                    _data.GetGroup()[commands[1]].PrintWhenDelete();
+                    PrintSystem.PrintWhenDeletedGroup(commands[1]);
                     _data.GetGroup().Remove(commands[1]);
                     break;
                 default:
@@ -196,7 +193,7 @@
             if (CommandsWithGroup(commands) == false & CommandsWithTasks(commands) == false 
                                                      & CreateCommands(commands) == false & DataCommands(commands))
             {
-                PrintError();
+                PrintSystem.PrintError();
             }
         }
 
@@ -207,6 +204,5 @@
                 ProcessingInput(Console.ReadLine().Split(' '));
             }
         }
-
-}
+    }
 }

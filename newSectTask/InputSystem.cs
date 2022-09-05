@@ -93,7 +93,7 @@
                     PrintSystem.PrintWhenChangeTaskStatus(commands[0]);
                     break;
                 case "/set-deadline":
-                    string date = null;
+                    string date = "";
                     for (int i = 2; i < commands.Length; i++)
                         date += commands[i];
                     if (!_data.GetTask()[commands[1]].SetDeadLine(date))
@@ -137,7 +137,7 @@
             
             if (commands.Length >= 2)
             {
-                for (int i =1; i < commands.Length; i++)
+                for (int i = 1; i < commands.Length; i++)
                 {
                     path += commands[i];
                 }
@@ -191,7 +191,7 @@
             }
 
             if (CommandsWithGroup(commands) == false & CommandsWithTasks(commands) == false 
-                                                     & CreateCommands(commands) == false & DataCommands(commands))
+                                                     & CreateCommands(commands) == false & DataCommands(commands) == false)
             {
                 PrintSystem.PrintError();
             }
